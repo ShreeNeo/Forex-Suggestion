@@ -409,8 +409,8 @@ class ForexDashboard:
 
         risk_pct = st.sidebar.slider(
             "Risk per Trade (%)",
-            min_value=0.5,
-            max_value=5.0,
+            min_value=0.0,
+            max_value=20.0,
             value=self.config.get('trading', {}).get('risk_percentage_per_trade', 1.5),
             step=0.1
         )
