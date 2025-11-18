@@ -127,10 +127,18 @@ class ForexDashboard:
             row_heights=[0.5, 0.15, 0.15, 0.2]
         )
 
+        # Get timestamp column (handle both 'Timestamp' and index)
+        if 'Timestamp' in data.columns:
+            x_axis = data['Timestamp']
+        elif 'Date' in data.columns:
+            x_axis = data['Date']
+        else:
+            x_axis = data.index
+
         # Candlestick
         fig.add_trace(
             go.Candlestick(
-                x=data['Timestamp'],
+                x=x_axis,
                 open=data['Open'],
                 high=data['High'],
                 low=data['Low'],
@@ -143,19 +151,19 @@ class ForexDashboard:
         # Moving Averages
         if 'SMA_20' in data.columns:
             fig.add_trace(
-                go.Scatter(x=data['Timestamp'], y=data['SMA_20'],
+                go.Scatter(x=x_axis, y=data['SMA_20'],
                           name='SMA 20', line=dict(color='orange', width=1)),
                 row=1, col=1
             )
         if 'SMA_50' in data.columns:
             fig.add_trace(
-                go.Scatter(x=data['Timestamp'], y=data['SMA_50'],
+                go.Scatter(x=x_axis, y=data['SMA_50'],
                           name='SMA 50', line=dict(color='blue', width=1)),
                 row=1, col=1
             )
         if 'SMA_200' in data.columns:
             fig.add_trace(
-                go.Scatter(x=data['Timestamp'], y=data['SMA_200'],
+                go.Scatter(x=x_axis, y=data['SMA_200'],
                           name='SMA 200', line=dict(color='red', width=1)),
                 row=1, col=1
             )
@@ -163,12 +171,12 @@ class ForexDashboard:
         # Bollinger Bands
         if 'BB_Upper' in data.columns:
             fig.add_trace(
-                go.Scatter(x=data['Timestamp'], y=data['BB_Upper'],
+                go.Scatter(x=x_axis, y=data['BB_Upper'],
                           name='BB Upper', line=dict(color='gray', width=1, dash='dash')),
                 row=1, col=1
             )
             fig.add_trace(
-                go.Scatter(x=data['Timestamp'], y=data['BB_Lower'],
+                go.Scatter(x=x_axis, y=data['BB_Lower'],
                           name='BB Lower', line=dict(color='gray', width=1, dash='dash'),
                           fill='tonexty', fillcolor='rgba(128,128,128,0.1)'),
                 row=1, col=1
@@ -177,14 +185,14 @@ class ForexDashboard:
         # Volume
         colors = ['red' if row['Open'] > row['Close'] else 'green' for _, row in data.iterrows()]
         fig.add_trace(
-            go.Bar(x=data['Timestamp'], y=data['Volume'], name='Volume', marker_color=colors),
+            go.Bar(x=x_axis, y=data['Volume'], name='Volume', marker_color=colors),
             row=2, col=1
         )
 
         # RSI
         if 'RSI' in data.columns:
             fig.add_trace(
-                go.Scatter(x=data['Timestamp'], y=data['RSI'], name='RSI', line=dict(color='purple')),
+                go.Scatter(x=x_axis, y=data['RSI'], name='RSI', line=dict(color='purple')),
                 row=3, col=1
             )
             # RSI levels
@@ -194,15 +202,15 @@ class ForexDashboard:
         # MACD
         if 'MACD' in data.columns:
             fig.add_trace(
-                go.Scatter(x=data['Timestamp'], y=data['MACD'], name='MACD', line=dict(color='blue')),
+                go.Scatter(x=x_axis, y=data['MACD'], name='MACD', line=dict(color='blue')),
                 row=4, col=1
             )
             fig.add_trace(
-                go.Scatter(x=data['Timestamp'], y=data['MACD_Signal'], name='Signal', line=dict(color='red')),
+                go.Scatter(x=x_axis, y=data['MACD_Signal'], name='Signal', line=dict(color='red')),
                 row=4, col=1
             )
             fig.add_trace(
-                go.Bar(x=data['Timestamp'], y=data['MACD_Histogram'], name='Histogram'),
+                go.Bar(x=x_axis, y=data['MACD_Histogram'], name='Histogram'),
                 row=4, col=1
             )
 
@@ -393,10 +401,10 @@ class ForexDashboard:
 
         investment = st.sidebar.number_input(
             "Investment Amount ($)",
-            min_value=100,
+            min_value=20,
             max_value=1000000,
             value=self.config.get('trading', {}).get('investment_amount', 10000),
-            step=100
+            step=10
         )
 
         risk_pct = st.sidebar.slider(
@@ -421,10 +429,10 @@ class ForexDashboard:
 
         daily_loss_limit = st.sidebar.number_input(
             "Daily Loss Limit ($)",
-            min_value=50,
-            max_value=10000,
+            min_value=0,
+            max_value=100000,
             value=self.config.get('trading', {}).get('daily_loss_limit', 300),
-            step=50
+            step=10
         )
 
         # Monitoring settings
