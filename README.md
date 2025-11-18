@@ -9,6 +9,36 @@ A real-time forex trading assistant for XAU/USD (Gold) with automated signal gen
 
 **This tool is for educational purposes only.** Trading forex and commodities involves substantial risk of loss and is not suitable for all investors. Always use paper trading mode to test strategies before risking real capital. The authors are not responsible for any financial losses incurred through the use of this software.
 
+## 🌐 **NEW! Web Dashboard UI**
+
+**Beautiful visual interface with interactive charts!**
+
+Instead of just using the command line, you now get a **professional web dashboard** with:
+
+- 📊 **Interactive Candlestick Charts** with zoom and hover
+- 📈 **Real-time Technical Indicators** overlaid on charts
+- 🎯 **Visual Trading Signals** with detailed recommendations
+- 💰 **Automated Position Calculator** with visual display
+- 📋 **Alert History Table** with all your past signals
+- ⚙️ **Easy Settings Panel** - no JSON editing needed
+- 🔄 **Auto-refresh** - updates every 5 minutes
+- 📱 **Mobile-friendly** - works on any device
+
+### Quick Start Web UI
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Launch web dashboard
+./start_web.sh          # Linux/macOS
+start_web.bat           # Windows
+```
+
+Dashboard opens at `http://localhost:8501` 🚀
+
+**See [WEB_UI_GUIDE.md](WEB_UI_GUIDE.md) for complete web dashboard documentation.**
+
 ## 🌟 Features
 
 - **Real-time Price Monitoring**: Fetch live XAU/USD data every 1-5 minutes
@@ -31,7 +61,9 @@ A real-time forex trading assistant for XAU/USD (Gold) with automated signal gen
   - Detailed trade recommendations
   - Alert logging with timestamp
 - **Paper Trading Mode**: Test strategies without risking real money
-- **Clean CLI Interface**: Easy-to-use command-line interface with colored output
+- **Dual Interface**:
+  - **Web Dashboard**: Beautiful UI with interactive charts (Recommended!)
+  - **CLI Interface**: Command-line interface for quick checks
 
 ## 📋 Requirements
 
@@ -225,14 +257,20 @@ You can customize various settings through the interactive menu:
 
 ```
 Forex-Suggestion/
-├── forex_trader.py          # Main application
+├── web_ui.py                # 🌐 Web Dashboard (Streamlit)
+├── forex_trader.py          # CLI application
 ├── data_fetcher.py          # API data fetching
 ├── indicators.py            # Technical analysis
 ├── position_calculator.py   # Position sizing & risk management
 ├── alerts.py                # Alert system & notifications
 ├── config.json              # Configuration file
 ├── requirements.txt         # Python dependencies
-├── README.md                # This file
+├── README.md                # Main documentation
+├── WEB_UI_GUIDE.md          # 🌐 Web dashboard guide
+├── QUICKSTART.md            # Quick start guide
+├── LICENSE                  # MIT license
+├── setup.sh / setup.bat     # Setup scripts
+├── start_web.sh / .bat      # 🌐 Web UI launchers
 ├── data/                    # Data storage (auto-created)
 │   ├── historical_data.csv
 │   ├── alert_log.csv
