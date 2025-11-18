@@ -1,0 +1,64 @@
+{
+  "api": {
+    "provider": "yfinance",
+    "symbol": "GC=F",
+    "alpha_vantage_key": "",
+    "twelve_data_key": "",
+    "oanda_api_key": "",
+    "oanda_account_id": "",
+    "oanda_practice": true
+  },
+  "trading": {
+    "investment_amount": 10000,
+    "risk_percentage_per_trade": 1.5,
+    "max_positions_per_day": 3,
+    "daily_loss_limit": 300,
+    "paper_trading_mode": true,
+    "leverage": 100
+  },
+  "indicators": {
+    "sma_short": 20,
+    "sma_medium": 50,
+    "sma_long": 200,
+    "rsi_period": 14,
+    "rsi_overbought": 70,
+    "rsi_oversold": 30,
+    "macd_fast": 12,
+    "macd_slow": 26,
+    "macd_signal": 9,
+    "atr_period": 14,
+    "bollinger_period": 20,
+    "bollinger_std": 2
+  },
+  "monitoring": {
+    "check_interval_minutes": 5,
+    "data_history_days": 30,
+    "enable_notifications": true,
+    "notification_sound": true,
+    "log_alerts": true
+  },
+  "risk_management": {
+    "risk_reward_ratio_min": 2,
+    "stop_loss_atr_multiplier": 2,
+    "take_profit_1_ratio": 1.5,
+    "take_profit_2_ratio": 3,
+    "trailing_stop": false,
+    "trailing_stop_pips": 20
+  },
+  "signal_requirements": {
+    "min_indicators_confluence": 3,
+    "require_trend_alignment": true,
+    "volume_confirmation": false
+  },
+  "data_storage": {
+    "historical_data_file": "data/historical_data.csv",
+    "trade_log_file": "data/trade_log.csv",
+    "alert_log_file": "data/alert_log.csv"
+  },
+  "display": {
+    "show_chart": true,
+    "chart_type": "ascii",
+    "refresh_interval_seconds": 30,
+    "show_indicator_values": true
+  }
+}
